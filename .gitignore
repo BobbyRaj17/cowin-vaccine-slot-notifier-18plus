@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+iaa-app-response.json
+ServiceNow.ps1
+yaml-parse.js

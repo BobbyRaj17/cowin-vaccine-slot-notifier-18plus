@@ -1,13 +1,15 @@
+const cron = require('node-cron');
+const express = require('express');
 const axios = require('axios')
-var strftime = require('strftime')
+const strftime = require('strftime')
 const range = 7;
 let n = 0;
 let dates = []
 
 
 // Loads environment variables from a .env file into process.env.
-// const dotenv = require('dotenv')
-// dotenv.config()
+const dotenv = require('dotenv')
+dotenv.config()
 
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Your Account Sid and Auth Token from twilio.com/console
@@ -95,6 +97,7 @@ async function main() {
                 })
             }
         }
+        console.log('#### COWIN API VACCINE SLOT POLLING TASK COMPLETED ####');
     }
     catch (error) {
         console.error(error);
@@ -102,4 +105,14 @@ async function main() {
 }
 
 
-main();
+app = express();
+
+// Schedule tasks to be run on the server.
+cron.schedule('* * * * *', function() {
+    const currentDateTime = new Date()
+    console.log(`#### ${currentDateTime} ####`); 
+    console.log('running a task every 5 minute');
+    main();
+});
+
+app.listen(3000);

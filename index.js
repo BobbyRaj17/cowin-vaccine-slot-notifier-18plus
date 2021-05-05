@@ -5,6 +5,8 @@ const strftime = require('strftime')
 const range = 7;
 let n = 0;
 let dates = []
+let cowinLogs
+const PORT = process.env.PORT || 5000;
 
 
 // Loads environment variables from a .env file into process.env.
@@ -66,8 +68,8 @@ function apiQueryCowin(districtID, date) {
         resolve(apiResultCowin)
       })
       .catch((err) => {
-        console.log("ERROR Encountered calling :: " + cowinUrl, err);
-        reject(err);
+        console.log("ERROR Encountered calling :: " + cowinUrl, err.response.status);
+        reject(err.response.status);
       })
     })
 }
@@ -104,6 +106,10 @@ async function main() {
     }
 }
 
+function webDisplay() {
+    webDisplayReturn = `COWIN API VACCINE SLOT POLLING APP is RUNING ....\n`
+    return webDisplayReturn
+}
 
 app = express();
 
@@ -115,4 +121,17 @@ cron.schedule('* * * * *', function() {
     main();
 });
 
-app.listen(3000);
+// Remove the error.log file every twenty-first day of the month.
+cron.schedule('0 0 21 * *', function() {
+    console.log('---------------------');
+    console.log('Running Cron Job');
+    fs.unlink('./error.log', err => {
+      if (err) throw err;
+      console.log('Error file successfully deleted');
+    });
+});
+  
+
+app
+  .get('/', (req, res) => res.send(webDisplay()))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));

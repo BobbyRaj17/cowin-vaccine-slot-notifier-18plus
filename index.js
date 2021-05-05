@@ -114,7 +114,7 @@ function webDisplay() {
 app = express();
 
 // Schedule tasks to be run on the server.
-cron.schedule('* * * * *', function() {
+cron.schedule('*/5 * * * *', function() {
     const currentDateTime = new Date()
     console.log(`#### ${currentDateTime} ####`); 
     console.log('running a task every 5 minute');

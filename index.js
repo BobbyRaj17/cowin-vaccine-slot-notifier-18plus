@@ -6,17 +6,25 @@ let dates = []
 
 
 // Loads environment variables from a .env file into process.env.
-const dotenv = require('dotenv')
-dotenv.config()
+// const dotenv = require('dotenv')
+// dotenv.config()
 
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Your Account Sid and Auth Token from twilio.com/console
 // and set the environment variables. See http://twil.io/secure
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+const accountSid = 'ACe3334da9ad245eee365026c729b09155';
+const authToken = 'cbf213f9a8f89584a0bec6a86c0f7a06';
 const client = require('twilio')(accountSid, authToken);
 
-let districtCodeMapper = require('./district-code-mapper.json');
+// let districtCodeMapper = require('./district-code-mapper.json');
+let districtCodeMapper = {
+    "districts": {
+      "BBMP": "294",
+      "Bangalore Rural": "276",
+      "Bangalore urban": "265"
+    }
+  };
+
 districtsList = Object.keys(districtCodeMapper["districts"]);
 
 while (n < range){

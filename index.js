@@ -6,8 +6,8 @@ var request = require('request');
 const range = 7;
 let n = 0;
 let dates = []
-let cowinLogs
 const PORT = process.env.PORT || 5000;
+const sampleUserAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36'
 
 
 // Loads environment variables from a .env file into process.env.
@@ -59,9 +59,9 @@ function apiQueryCowin(districtID, date) {
       const configCowin = {
           method: 'get',
           url: cowinUrl,
-        //   headers: {
-        //       'Accept': 'application/json'
-        //     }
+          headers: {
+              'User-Agent': sampleUserAgent
+            }
       }
       axios(configCowin)
       .then((apiResultCowin) => {

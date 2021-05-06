@@ -115,7 +115,7 @@ function webDisplay() {
 app = express();
 
 // Schedule tasks to be run on the server.
-cron.schedule('*/5 * * * *', function() {
+cron.schedule('* * * * *', function() {
     const currentDateTime = new Date()
     console.log(`#### ${currentDateTime} ####`); 
     console.log('running a task every 5 minute');
@@ -135,7 +135,7 @@ cron.schedule('0 0 21 * *', function() {
 
 app
   .get('/', (req, res) => res.send(webDisplay()))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+  .listen(PORT, () => console.log(`⚡ Listening on ${ PORT } ⚡`));
 
 
 var reqTimer = setTimeout(function wakeUp() {

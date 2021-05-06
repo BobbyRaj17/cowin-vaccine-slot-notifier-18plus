@@ -2,6 +2,7 @@ const cron = require('node-cron');
 const express = require('express');
 const axios = require('axios')
 const strftime = require('strftime')
+var request = require('request');
 const range = 7;
 let n = 0;
 let dates = []
@@ -135,3 +136,11 @@ cron.schedule('0 0 21 * *', function() {
 app
   .get('/', (req, res) => res.send(webDisplay()))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+
+var reqTimer = setTimeout(function wakeUp() {
+    request("https://cowin-18plus-notifier.herokuapp.com/", function() {
+        console.log("WAKE UP DYNO");
+    });
+    return reqTimer = setTimeout(wakeUp, 100000);
+}, 100000)

@@ -1,0 +1,16 @@
+{
+  "name": "cowin-notifier",
+  "version": "1.0.0",
+  "description": "covid-19 vaccine slot availablity based on cowin website",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Bobby Raj",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "strftime": "^0.10.0",
+    "twilio": "^3.61.0"
+  }
+}

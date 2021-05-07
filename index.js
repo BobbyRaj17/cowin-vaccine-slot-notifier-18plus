@@ -40,16 +40,16 @@ while (n < range){
     n++;
 }
 
-function send_sms(centerID, hospitalName, districtName, vaccineName, minAgeLimit, availableCapacity, pincode, date) {
+function sendSms(centerID, hospitalName, districtName, vaccineName, minAgeLimit, availableCapacity, pincode, date) {
     // console.log(`URGENT: \n Found a slot for vaccine \n center_id: ${centerID} \n Hospital Name: ${hospitalName} \n district_name: ${districtName} \n min_age_limit: ${minAgeLimit} \n Available_capacity: ${availableCapacity} \n date(dd-mm-yyyy): ${date}`);
     client.messages
         .create({
-            body: `URGENT: \n Found a slot for vaccine \n center_id: ${cowinResponse.center_id} \n Hospital Name: ${cowinResponse.name} \n district_name: ${cowinResponse.district_name} \n pincode: ${cowinResponse.pincode} \n min_age_limit: ${cowinSessions.min_age_limit} \n Available_capacity: ${cowinSessions.available_capacity} \n vaccine name: ${cowinSessions.vaccine} \n date(dd-mm-yyyy): ${cowinSessions.date}`,
+            body: `URGENT: \n Found a slot for vaccine \n center_id: ${centerID} \n Hospital Name: ${hospitalName} \n district_name: ${districtName} \n pincode: ${pincode} \n min_age_limit: ${minAgeLimit} \n Available_capacity: ${availableCapacity} \n vaccine name: ${vaccineName} \n date(dd-mm-yyyy): ${date}`,
             from: '+13523663120',
             to: '+918792169789'
         })
         .then(message => console.log("Msg Sent :: " + message.sid));
-}
+  }
 
 function apiQueryCowin(districtID, date) {
     return new Promise((resolve, reject) => {
@@ -89,7 +89,7 @@ async function main() {
                                 if (cowinSessions.available_capacity > 0 && cowinSessions.min_age_limit === 18){
                                     console.log('********')
                                     console.log(`URGENT: \n Found a slot for vaccine \n center_id: ${cowinResponse.center_id} \n Hospital Name: ${cowinResponse.name} \n district_name: ${cowinResponse.district_name} \n pincode: ${cowinResponse.pincode} \n min_age_limit: ${cowinSessions.min_age_limit} \n Available_capacity: ${cowinSessions.available_capacity} \n vaccine name: ${cowinSessions.vaccine} \n date(dd-mm-yyyy): ${cowinSessions.date}`)
-                                    send_sms(cowinResponse.center_id, cowinResponse.name, cowinResponse.district_name, cowinResponse.pincode, cowinSessions.min_age_limit, cowinSessions.available_capacity, cowinSessions.vaccine, cowinSessions.date);
+                                    sendSms(cowinResponse.center_id, cowinResponse.name, cowinResponse.district_name, cowinResponse.pincode, cowinSessions.min_age_limit, cowinSessions.available_capacity, cowinSessions.vaccine, cowinSessions.date);
                                     console.log('********')
                                 }
                             }

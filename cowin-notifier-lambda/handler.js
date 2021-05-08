@@ -34,7 +34,7 @@ while (n < range){
 
 module.exports.cowinNotifier = async (event) => {
   
-  function sendSms(centerID, hospitalName, districtName, vaccineName, minAgeLimit, availableCapacity, pincode, date) {
+  function sendSms(centerID, hospitalName, districtName, pincode, minAgeLimit, availableCapacity, vaccineName, date) {
     // console.log(`URGENT: \n Found a slot for vaccine \n center_id: ${centerID} \n Hospital Name: ${hospitalName} \n district_name: ${districtName} \n min_age_limit: ${minAgeLimit} \n Available_capacity: ${availableCapacity} \n date(dd-mm-yyyy): ${date}`);
     client.messages
         .create({
@@ -98,7 +98,7 @@ module.exports.cowinNotifier = async (event) => {
                       }
                   })
                   .catch((err) => {
-                      console.log("ERROR Encountered calling :: " + cowinUrl, err);
+                      console.log("ERROR Encountered calling :: ", err);
                   })
               }
           }
